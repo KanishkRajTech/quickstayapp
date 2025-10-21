@@ -3,25 +3,21 @@
 import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 
-// The function is now correctly defined and exported.
 export default function Management() {
-  // 1. FIX: Explicitly type the ref to target a div element
+
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = imageRef.current;
-    
-    // 2. FIX: Guard Clause to prevent accessing properties on a null ref
+ 
     if (!container) return;
 
-    // 3. FIX: Explicitly type the result of querySelector
+
     const inner = container.querySelector<HTMLDivElement>(".management-image-inner");
 
-    // Guard against null if the inner element query fails
     if (!inner) return;
 
 
-    // 4. FIX: Explicitly type the MouseEvent 'e'
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -33,20 +29,18 @@ export default function Management() {
       const rotateX = ((y - centerY) / centerY) * 10;
       const rotateY = ((x - centerX) / centerX) * -10;
 
-      // Apply 3D transformation and scale effect
+      
       inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     };
 
     const handleMouseLeave = () => {
-      // Reset transformation when mouse leaves
+     
       inner.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
     };
 
-    // Attach listeners
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mouseleave", handleMouseLeave);
 
-    // Cleanup listeners
     return () => {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
@@ -112,8 +106,7 @@ export default function Management() {
                   alt="QuickStay App Mockup"
                   width={900}
                   height={300}
-                  // The following classes seem unusual for an Image component and might cause layout issues.
-                  // I've kept them for functional consistency but be aware they are unconventional.
+                  
                   className="relative w-full h-auto md:w-[516px] md:h-[540px] md:top-[70] md:overflow-visible"
                 />
               </div>
