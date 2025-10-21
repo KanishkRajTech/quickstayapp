@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "../../../lib/utils";
+import Image from "next/image";
 type UserType = "student" | "professional" | "couple" | "bachelor";
 const OPTIONS: Array<{
   value: UserType;
@@ -68,11 +69,8 @@ export function UserTypeSelector({
             )}
           >
             <div className="h-7 w-7 relative flex size-8 shrink-0 overflow-hidden rounded-full">
-              <img
-                src={opt.avatar || "/placeholder.svg"}
-                alt={`${opt.label} avatar`}
-                className="aspect-square size-full"
-              />
+
+              <Image src={opt.avatar || "/placeholder.svg"} alt={`${opt.label} avatar`} width={500} height={300} />
               <div className="bg-muted flex size-full items-center justify-center rounded-full">
                 {opt.fallback}
               </div>
