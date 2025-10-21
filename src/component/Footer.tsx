@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#FAF2F2] text-gray-700">
       <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-4 gap-10">
-        {/* Logo & Description */}
+        {/* Logo  */}
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
             <Image

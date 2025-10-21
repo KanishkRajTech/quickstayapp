@@ -1,7 +1,5 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,10 +18,18 @@ import Market from "./componets/Market";
 import Download from "./componets/Download";
 import Footer from "@/component/Footer";
 import Explore from "./componets/Explore";
+import Navbar from "@/component/navbar";
+
+
+
+
+
 
 export default function page() {
   return (
     <>
+    
+      <Navbar />
       <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 bg-gradient-to-b from-[#E9C5C4] to-gray-50 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Motion wrapper */}

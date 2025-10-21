@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 w-full z-50 bg-white md:bg-transparent backdrop-blur-sm "
+      className="fixed top-0 left-0 w-full z-50 bg-white md:bg-transparent backdrop-blur-sm"
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -34,12 +34,35 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
+            {/* Navigation Links */}
+            <nav className="flex items-center space-x-6">
+              <Link
+                href="/"
+                className="text-[#4A4A4A] font-medium hover:text-[#A00500] transition-colors duration-300"
+              >
+                Home
+              </Link>
+              <Link
+                href="/find-property"
+                className="text-[#4A4A4A] font-medium hover:text-[#A00500] transition-colors duration-300"
+              >
+                Find Property
+              </Link>
+              <Link
+                href="/property"
+                className="text-[#4A4A4A] font-medium hover:text-[#A00500] transition-colors duration-300"
+              >
+                Property
+              </Link>
+            </nav>
+
+            {/* Download Button */}
             <Link
               href="/Black.png"
               className="btn relative inline-flex items-center justify-center overflow-hidden font-medium transition-all bg-[#A00500] px-6 py-3 rounded-full hover:bg-white group duration-300 ease-out transform hover:-translate-y-1 hover:shadow-lg"
             >
               <span className="absolute bottom-0 left-0 w-full h-0 bg-[#4A4A4A] rounded-full transition-all duration-500 ease-in-out group-hover:h-full"></span>
-              <span className="relative z-10 text-white font-bold">
+              <span className="relative z-10 text-white font-bold group-hover:text-white">
                 Download
               </span>
             </Link>
@@ -63,14 +86,43 @@ export default function Navbar() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex flex-col p-6 space-y-6 bg-white h-screen ">
-          <div className="mt-30  mx-auto">
+        <div className="flex flex-col  space-y-6 bg-white h-screen">
+          <div className=" border-b border-black/20">
+            <div className="text-2xl p-4 font-bold text-[#4A4A4A]">QuickStay</div>
+          </div>
+          <nav className="flex flex-col space-y-4 mt-5 ">
             <Link
-              href="#"
+              href="/"
+              className="text-[#4A4A4A] text-xl px-8 font-medium hover:text-[#A00500] transition-colors duration-300 py-2 border-b border-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="/find-property"
+              className="text-[#4A4A4A] text-xl px-8 font-medium hover:text-[#A00500] transition-colors duration-300 py-2 border-b border-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              Find Property
+            </Link>
+            <Link
+              href="/property"
+              className="text-[#4A4A4A] text-xl px-8 font-medium hover:text-[#A00500] transition-colors duration-300 py-2 border-b border-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              Property
+            </Link>
+          </nav>
+
+          {/* Mobile Download Button */}
+          <div className="mt-6 mx-auto">
+            <Link
+              href="/Black.png"
               className="btn relative inline-flex items-center justify-center overflow-hidden font-medium transition-all bg-[#A00500] px-6 py-3 rounded-full hover:bg-white group duration-300 ease-out transform hover:-translate-y-1 hover:shadow-lg"
+              onClick={() => setIsOpen(false)}
             >
               <span className="absolute bottom-0 left-0 w-full h-0 bg-[#4A4A4A] rounded-full transition-all duration-500 ease-in-out group-hover:h-full"></span>
-              <span className="relative z-10 text-white font-bold">
+              <span className="relative z-10 text-white font-bold group-hover:text-white">
                 Download
               </span>
             </Link>
