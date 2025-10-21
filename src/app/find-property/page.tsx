@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { MapPin, RotateCcw, Search } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
 import { MdGpsFixed } from "react-icons/md";
 import {
   UserTypeSelector,
@@ -12,11 +12,11 @@ import Footer from "@/component/Footer";
 
 export default function Page() {
   const [currentText, setCurrentText] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("Student");
+  
   const [isSearching, setIsSearching] = useState(false);
 
   const texts = ["Flats", "PGs", "Home", "Hotel"];
-  const categories = ["Student", "Professional", "Couple", "Bachelor"];
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,10 +39,7 @@ export default function Page() {
     setIsSearching(false);
   }
 
-  function onReset() {
-    setType("student");
-    setLocation("");
-  }
+
 
   function useCurrentLocation() {
     setIsSearching(true);
@@ -55,7 +52,6 @@ export default function Page() {
 
   return (
     <>
-   
       <Navbar />
       <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-br from-[#E9C5C4] via-[#F5E8E7] to-gray-50 min-h-screen flex items-center">
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
@@ -74,11 +70,11 @@ export default function Page() {
               className="text-balance text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-2"
             >
               Find your{" "}
-              <span className="text-[#A00500] inline-block  bg-gradient-to-r from-[#A00500] to-[#D32F2F] bg-clip-text text-transparent animate-fade-in">
+              <span className="text-[#A00500] inline-block bg-gradient-to-r from-[#A00500] to-[#D32F2F] bg-clip-text text-transparent animate-fade-in">
                 {texts[currentText]}
               </span>
             </h1>
-            <p className="mt-6 text-lg text-gray-600 md:text-xl  mx-auto leading-relaxed">
+            <p className="mt-6 text-lg text-gray-600 md:text-xl mx-auto leading-relaxed">
               Discover the perfect accommodation that matches your lifestyle and
               preferences
             </p>
@@ -91,7 +87,8 @@ export default function Page() {
                 <div className="flex items-center gap-3">
                   <div className="w-1.5 h-6 bg-[#A00500] rounded-full"></div>
                   <label className="text-lg font-semibold text-gray-800">
-                    I'm a
+                  
+                    I&apos;m a
                   </label>
                 </div>
                 <UserTypeSelector value={type} onChange={setType} />
