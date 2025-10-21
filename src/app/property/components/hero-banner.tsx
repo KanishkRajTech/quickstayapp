@@ -6,7 +6,7 @@ export function HeroBanner() {
   return (
     <>
       <section
-        className="relative  min-h-[95vh] w-full flex items-center justify-center md:justify-start bg-white"
+        className="relative min-h-[95vh] w-full flex items-center justify-center md:justify-start bg-white"
         aria-label="Hero"
       >
         <Image
@@ -27,7 +27,7 @@ export function HeroBanner() {
             is right here.
           </h1>
 
-          <button className="py-3 px-10 sm:py-4 sm:px-8 bg-red-600 text-white font-bold  text-md md:text-sm sm:text-base cursor-pointer transition hover:bg-red-700">
+          <button className="py-3 px-10 sm:py-4 sm:px-8 bg-red-600 text-white font-bold text-md md:text-sm sm:text-base cursor-pointer transition hover:bg-red-700">
             EXPLORE PROPERTIES
           </button>
         </div>
@@ -68,7 +68,7 @@ export function HeroBanner() {
                 seamless services, and a vibrant community.
               </p>
               <p className="">
-                Whether you're looking for a private space or a coliving
+                Whether you&apos;re looking for a private space or a coliving
                 experience, we ensure a stress-free stay with top-notch
                 security, daily essentials, and tech-enabled management.
               </p>

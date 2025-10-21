@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 export function ComfortSection() {
   return (
     <section
@@ -13,7 +14,7 @@ export function ComfortSection() {
           amenities.
         </p>
         <p>
-          Whether you're working, unwinding, or getting a good night's rest, our
+          Whether you&apos;re working, unwinding, or getting a good night&apos;s rest, our
           rooms create a relaxing environment tailored to your lifestyle.
         </p>
         <p className="font-bold">Stay in comfort. Live with ease.</p>
