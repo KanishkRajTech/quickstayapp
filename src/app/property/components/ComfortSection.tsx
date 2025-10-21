@@ -1,3 +1,4 @@
+import Image from "next/image";
 export function ComfortSection() {
   return (
     <section
@@ -19,23 +20,23 @@ export function ComfortSection() {
       </div>
 
       <div className="flex-1 flex justify-center items-start gap-3 sm:gap-5 w-full">
-        <img
+        <Image
           alt="Comfortable room setup with modern furnishings and cozy decor"
           data-ai-hint="room interior"
-          src="1.webp"
-          className=" object-cover mt-10 sm:mt-16 w-1/2"
-          loading="lazy"
+          src="/1.webp" 
+          className="object-cover mt-10 sm:mt-16 w-1/2"
           width={300}
           height={450}
+          loading="lazy"
         />
-        <img
-          src="2.webp"
+        <Image
+          src="/2.webp"
           alt="Relaxing space with natural light and comfortable seating"
           data-ai-hint="living space"
-          className=" object-cover w-1/2"
-          loading="lazy"
+          className="object-cover w-1/2"
           width={300}
           height={450}
+          loading="lazy"
         />
       </div>
     </section>

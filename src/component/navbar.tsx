@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -24,11 +25,14 @@ export default function Navbar() {
               href="/"
               className="flex items-center transition-transform duration-300 hover:scale-105"
             >
-              <img
-                src="https://quickstayapp.com/wp-content/uploads/2025/03/Heading-10-1-e1742027089581.png"
-                alt="QuickStay"
-                className="md:h-10 h-7 object-contain"
-              />
+              <Image
+                    src="https://quickstayapp.com/wp-content/uploads/2025/03/Heading-10-1-e1742027089581.png"
+                    alt="QuickStay"
+                    className="md:h-10 h-40 w-full object-contain"
+               
+                    width={100} 
+                    height={40}
+                />
             </Link>
           </div>
 

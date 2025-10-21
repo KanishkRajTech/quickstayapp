@@ -49,8 +49,8 @@ export function HeroBanner() {
 
             {/* Center */}
             <figure className="md:basis-1/3 w-full">
-              <img
-                src="rm1.webp"
+              <Image
+                src="/rm1.webp" 
                 alt="Cozy QuickStay bedroom with a woven pendant lamp and neutral tones"
                 className=" object-cover w-full max-w-xs sm:max-w-sm"
                 loading="lazy"
