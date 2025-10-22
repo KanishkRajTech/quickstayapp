@@ -17,7 +17,7 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: false, amount: 0.2 }}
     >
-      <div className="max-w-6xl mx-auto py-4 md:py-3 px-4">
+      <div className="max-w-6xl mx-auto py-2 md:py-3 px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="logo">
@@ -28,10 +28,10 @@ export default function Navbar() {
               <Image
                     src="https://quickstayapp.com/wp-content/uploads/2025/03/Heading-10-1-e1742027089581.png"
                     alt="QuickStay"
-                    className="md:h-10 h-40 w-full object-contain"
+                    className="md:h-20 h-10 object-contain"
                
-                    width={100} 
-                    height={40}
+                    width={150} 
+                    height={20}
                 />
             </Link>
           </div>
