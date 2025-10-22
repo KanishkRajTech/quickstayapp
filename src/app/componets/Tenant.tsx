@@ -45,15 +45,16 @@ export default function Tenant() {
         </div>
 
         {/* Right Image Section */}
-        <div className="w-full md:w-1/2 relative  justify-center items-end hidden lg:flex">
-          <Image
-            src="/3.png"
-            alt="QuickStay App Mockup"
-            width={530}
-            height={900}
-            className=" absolute bottom-0 -top-20 md:-top-97"
-          />
-        </div>
+       <div className="w-full md:w-1/2 relative justify-center items-end hidden lg:flex">
+  <Image
+    src="/3.png"
+    alt="QuickStay App Mockup"
+    width={530}
+    height={900}
+    className="absolute bottom-0 -top-20 md:-top-97"
+  />
+</div>
+
       </div>
     </section>
   );

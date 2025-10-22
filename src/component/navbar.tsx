@@ -17,7 +17,7 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: false, amount: 0.2 }}
     >
-      <div className="max-w-6xl mx-auto py-2 md:py-3 px-4">
+      <div className="max-w-6xl mx-auto  px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="logo">
