@@ -12,11 +12,10 @@
 
 // export default function Page() {
 //   const [currentText, setCurrentText] = useState(0);
-  
+
 //   const [isSearching, setIsSearching] = useState(false);
 
 //   const texts = ["Flats", "PGs", "Home", "Hotel"];
-
 
 //   useEffect(() => {
 //     const interval = setInterval(() => {
@@ -38,8 +37,6 @@
 //     console.log("[v0] Search submit:", { type, location });
 //     setIsSearching(false);
 //   }
-
-
 
 //   function useCurrentLocation() {
 //     setIsSearching(true);
@@ -87,7 +84,7 @@
 //                 <div className="flex items-center gap-3">
 //                   <div className="w-1.5 h-6 bg-[#A00500] rounded-full"></div>
 //                   <label className="text-lg font-semibold text-gray-800">
-                  
+
 //                     I&apos;m a
 //                   </label>
 //                 </div>
@@ -187,13 +184,13 @@ import {
 import Navbar from "@/component/navbar";
 import Footer from "@/component/Footer";
 
-import { searchProperties } from "../../lib/firestore"; 
-import type { Property, SearchFilters } from "@/types/index"; 
+import { searchProperties } from "../../lib/firestore";
+import type { Property, SearchFilters } from "@/types/index";
 
 export default function Page() {
   const [currentText, setCurrentText] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
-  
+
   const [searchResults, setSearchResults] = useState<Property[]>([]);
   const [searchError, setSearchError] = useState<string | null>(null);
 
@@ -212,8 +209,8 @@ export default function Page() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSearchError(null); 
-    setSearchResults([]); 
+    setSearchError(null);
+    setSearchResults([]);
 
     if (!location.trim()) {
       setSearchError("Please enter a location to search.");
@@ -223,12 +220,15 @@ export default function Page() {
     setIsSearching(true);
 
     const currentFilters: SearchFilters = {
-        type: type,
-        // Add other filters here as 
+      type: type,
+      // Add other filters here as
     };
-    
-    //Call the Firebase search function 
-    const { data, error } = await searchProperties(location.trim(), currentFilters);
+
+    //Call the Firebase search function
+    const { data, error } = await searchProperties(
+      location.trim(),
+      currentFilters
+    );
 
     if (error) {
       setSearchError(error);
@@ -237,9 +237,7 @@ export default function Page() {
       setSearchResults(data);
       console.log("[v1] Search successful. Found:", data.length, "properties.");
       //  Navigate to the search results page here
-     
     }
-
 
     // await new Promise((resolve) => setTimeout(resolve, 1000)); // Remove mock delay
     console.log("[v0] Search submit:", { type, location });
@@ -249,7 +247,7 @@ export default function Page() {
   function useCurrentLocation() {
     setIsSearching(true);
 
-    // Implement actual Geolocation API call here 
+    // Implement actual Geolocation API call here
     setTimeout(() => {
       setLocation("Current Location (Simulated)"); // Placeholder for real location
       setIsSearching(false);
@@ -372,31 +370,35 @@ export default function Page() {
                 </div>
               </div>
             </form>
-            
+
             {/* Display Error Message */}
             {searchError && (
-                <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                    Error: {searchError}
-                </div>
+              <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                Error: {searchError}
+              </div>
             )}
-            
-            {/* Display Search Results Summary (Optional: remove this if you navigate to a results page) */}
+
+            {/* Display Search Results Summary */}
             {searchResults.length > 0 && (
-                <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                    Found {searchResults.length} properties matching your search!
-                </div>
+              <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                Found {searchResults.length} properties matching your search!
+              </div>
             )}
+
             {/* Display No Results Message */}
-            {!isSearching && !searchError && location.trim() && searchResults.length === 0 && (
+            {!isSearching &&
+              !searchError &&
+              location.trim() &&
+              searchResults.length === 0 && (
                 <div className="mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg">
-                    No properties found for "{location}".
+                  No properties found for &quot;{location}&quot;.
                 </div>
-            )}
-            
+              )}
           </div>
         </div>
       </section>
       <Footer />
-    </>
-  );
+          
+    </>
+  );
 }
