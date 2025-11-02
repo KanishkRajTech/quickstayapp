@@ -1,5 +1,3 @@
-
-
 "use client";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -16,6 +14,7 @@ import Footer from "@/component/Footer";
 import { searchProperties } from "../../lib/firestore";
 import type { Property, SearchFilters } from "@/types/index";
 import Image from "next/image";
+import { log } from "console";
 
 export default function Page() {
   const [currentText, setCurrentText] = useState(0);
@@ -291,12 +290,13 @@ export default function Page() {
                   key={property.id}
                   className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-xl"
                 >
-                  <div className="flex flex-col md:flex-row md:gap-4">
-                    {/* Property Images - On left by default, use md:flex-row-reverse if you want it on right */}
+                  {/* Main content area - flex on desktop, column on mobile */}
+                  <div className="flex flex-col md:flex-row">
+                    {/* Property Images */}
                     {property.propertyImages &&
                       property.propertyImages.length > 0 && (
-                        <div className="flex-shrink-0 w-full md:w-1/3 p-5">
-                          <div className="relative rounded-lg overflow-hidden aspect-video h-50">
+                        <div className="w-full md:w-1/3 p-5">
+                          <div className="relative rounded-lg overflow-hidden aspect-video">
                             <Image
                               src={property.propertyImages[0].imageUrl}
                               alt={`${property.propertyName} image (${
@@ -311,34 +311,33 @@ export default function Page() {
                                 +{property.propertyImages.length - 1} more
                               </div>
                             )}
+                            {/* Favorite button moved inside image container */}
+                            <button className="absolute top-3 left-3 text-gray-400 hover:text-red-500 transition-colors p-1 bg-white bg-opacity-80 rounded-full">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                              </svg>
+                            </button>
                           </div>
                         </div>
                       )}
 
                     {/* Property Content */}
-                    <div className="flex-grow w-full md:w-2/3 p-5">
+                    <div className="w-full md:w-2/3 p-5">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-xl font-bold text-[#A00500] truncate mr-2">
                           {property.propertyName}
                         </h3>
-                        <div className="flex-shrink-0">
-                          <button className="text-gray-400 hover:text-red-500 transition-colors p-1">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                              />
-                            </svg>
-                          </button>
-                        </div>
                       </div>
 
                       <div className="flex items-center text-sm text-gray-500 mb-3">
@@ -491,8 +490,8 @@ export default function Page() {
                               </svg>
                               <span className="font-medium">WiFi:</span>
                               <span className="ml-1">
-                                {property.wifiList[0].providerName} (
-                                {property.wifiList[0].speed})
+                               
+                                {property.wifiList[0]}
                               </span>
                               {property.wifiList.length > 1 && (
                                 <span className="ml-1 text-gray-500">
