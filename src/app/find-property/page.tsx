@@ -1,176 +1,4 @@
-// "use client";
-// import * as React from "react";
-// import { useState, useEffect } from "react";
-// import { MapPin, Search } from "lucide-react";
-// import { MdGpsFixed } from "react-icons/md";
-// import {
-//   UserTypeSelector,
-//   type UserType,
-// } from "./componets/user-type-selector";
-// import Navbar from "@/component/navbar";
-// import Footer from "@/component/Footer";
 
-// export default function Page() {
-//   const [currentText, setCurrentText] = useState(0);
-
-//   const [isSearching, setIsSearching] = useState(false);
-
-//   const texts = ["Flats", "PGs", "Home", "Hotel"];
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentText((prev) => (prev + 1) % texts.length);
-//     }, 2000);
-
-//     return () => clearInterval(interval);
-//   }, [texts.length]);
-
-//   const [type, setType] = React.useState<UserType>("student");
-//   const [location, setLocation] = React.useState<string>("");
-
-//   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-//     e.preventDefault();
-//     setIsSearching(true);
-
-//     await new Promise((resolve) => setTimeout(resolve, 1000));
-
-//     console.log("[v0] Search submit:", { type, location });
-//     setIsSearching(false);
-//   }
-
-//   function useCurrentLocation() {
-//     setIsSearching(true);
-
-//     setTimeout(() => {
-//       setLocation("Current Location");
-//       setIsSearching(false);
-//     }, 800);
-//   }
-
-//   return (
-//     <>
-//       <Navbar />
-//       <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-br from-[#E9C5C4] via-[#F5E8E7] to-gray-50 min-h-screen flex items-center">
-//         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
-
-//         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-//           <header className="text-center mb-8">
-//             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 mb-4">
-//               <div className="w-2 h-2 bg-[#A00500] rounded-full animate-pulse"></div>
-//               <span className="text-sm text-gray-600">
-//                 Find your perfect stay
-//               </span>
-//             </div>
-
-//             <h1
-//               id="hostel-hero-title"
-//               className="text-balance text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-2"
-//             >
-//               Find your{" "}
-//               <span className="text-[#A00500] inline-block bg-gradient-to-r from-[#A00500] to-[#D32F2F] bg-clip-text text-transparent animate-fade-in">
-//                 {texts[currentText]}
-//               </span>
-//             </h1>
-//             <p className="mt-6 text-lg text-gray-600 md:text-xl mx-auto leading-relaxed">
-//               Discover the perfect accommodation that matches your lifestyle and
-//               preferences
-//             </p>
-//           </header>
-
-//           {/* Search Card */}
-//           <div className="bg-white/90 backdrop-blur-sm border border-gray-200/60 rounded-2xl shadow-xl p-6 md:p-8 lg:p-10 hover:shadow-2xl transition-all duration-300">
-//             <form onSubmit={onSubmit} className="space-y-8">
-//               <div className="space-y-4">
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-1.5 h-6 bg-[#A00500] rounded-full"></div>
-//                   <label className="text-lg font-semibold text-gray-800">
-
-//                     I&apos;m a
-//                   </label>
-//                 </div>
-//                 <UserTypeSelector value={type} onChange={setType} />
-//               </div>
-
-//               {/* Divider */}
-//               <div className="relative">
-//                 <div className="absolute inset-0 flex items-center">
-//                   <div className="w-full border-t border-gray-300/60"></div>
-//                 </div>
-//                 <div className="relative flex justify-center">
-//                   <span className="bg-white px-4 text-sm text-gray-500">
-//                     in
-//                   </span>
-//                 </div>
-//               </div>
-
-//               {/* Location Section */}
-//               <div className="space-y-4">
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-1.5 h-6 bg-[#A00500] rounded-full"></div>
-//                   <label className="text-lg font-semibold text-gray-800">
-//                     Finding in
-//                   </label>
-//                 </div>
-
-//                 <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
-//                   <div className="flex-1 w-full">
-//                     <div className="relative group">
-//                       <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600 h-5 w-5 group-focus-within:text-[#A00500] transition-colors" />
-//                       <input
-//                         type="text"
-//                         id="location"
-//                         placeholder="Enter area, landmark, or city..."
-//                         value={location}
-//                         onChange={(e) => setLocation(e.target.value)}
-//                         className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#A00500]/20 focus:border-[#A00500] transition-all duration-200 bg-white/50 backdrop-blur-sm"
-//                       />
-//                     </div>
-//                   </div>
-
-//                   <div className="flex gap-3 w-full lg:w-auto">
-//                     <button
-//                       type="button"
-//                       onClick={useCurrentLocation}
-//                       disabled={isSearching}
-//                       className="flex items-center gap-2 px-4 py-4 border border-gray-300 rounded-xl hover:bg-gray-50 disabled:opacity-50 transition-all duration-200 flex-1 lg:flex-none justify-center"
-//                       aria-label="Use current location"
-//                     >
-//                       <MdGpsFixed
-//                         className={`text-[#A00500] text-xl ${
-//                           isSearching ? "animate-spin" : ""
-//                         }`}
-//                       />
-//                       <span className="lg:hidden">Current</span>
-//                     </button>
-
-//                     <button
-//                       type="submit"
-//                       disabled={isSearching || !location.trim()}
-//                       className="bg-gradient-to-r from-[#A00500] to-[#D32F2F] text-white py-4 px-8 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2 flex-1 lg:flex-none justify-center"
-//                     >
-//                       {isSearching ? (
-//                         <>
-//                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-//                           <span>Searching...</span>
-//                         </>
-//                       ) : (
-//                         <>
-//                           <Search className="h-5 w-5" />
-//                           <span>Search</span>
-//                         </>
-//                       )}
-//                     </button>
-//                   </div>
-//                 </div>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </section>
-//       <Footer />
-//     </>
-//   );
-// }
 
 "use client";
 import * as React from "react";
@@ -181,7 +9,6 @@ import {
   UserTypeSelector,
   type UserType,
 } from "./componets/user-type-selector";
-
 
 import Navbar from "@/component/navbar";
 import Footer from "@/component/Footer";
@@ -464,20 +291,20 @@ export default function Page() {
                   key={property.id}
                   className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-xl"
                 >
-                  <div className="flex flex-row-reverse">
-                    {/* Property Images - This will now appear on the left due to row-reverse */}
+                  <div className="flex flex-col md:flex-row md:gap-4">
+                    {/* Property Images - On left by default, use md:flex-row-reverse if you want it on right */}
                     {property.propertyImages &&
                       property.propertyImages.length > 0 && (
-                        <div className="flex-shrink-0 w-1/3 p-5 hidden md:block">
-                          <div className="relative rounded-lg overflow-hidden aspect-video">
+                        <div className="flex-shrink-0 w-full md:w-1/3 p-5">
+                          <div className="relative rounded-lg overflow-hidden aspect-video h-50">
                             <Image
-                              src="/OIP.jpeg"
+                              src={property.propertyImages[0].imageUrl}
                               alt={`${property.propertyName} image (${
                                 property.propertyImages[0].imageType || "Photo"
                               })`}
                               fill
                               style={{ objectFit: "cover" }}
-                              sizes="(max-width: 768px) 100vw, 50vw"
+                              sizes="(max-width: 768px) 100vw, 33vw"
                             />
                             {property.propertyImages.length > 1 && (
                               <div className="absolute top-3 right-3 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded-md">
@@ -488,8 +315,8 @@ export default function Page() {
                         </div>
                       )}
 
-                    {/* Property Header - This will appear on the right due to row-reverse */}
-                    <div className="flex-grow p-5">
+                    {/* Property Content */}
+                    <div className="flex-grow w-full md:w-2/3 p-5">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-xl font-bold text-[#A00500] truncate mr-2">
                           {property.propertyName}
@@ -583,13 +410,13 @@ export default function Page() {
                                 </span>
                                 <span
                                   className={`px-2 py-0.5 rounded-full text-xs ${
-                                    (room.vacantBeds ?? 0) > 0
+                                    (room.totalBed ?? 0) > 0
                                       ? "bg-green-100 text-green-800"
                                       : "bg-red-100 text-red-800"
                                   }`}
                                 >
-                                  {room.vacantBeds ?? 0}{" "}
-                                  {room.vacantBeds === 1 ? "bed" : "beds"}{" "}
+                                  {room.totalBed ?? 0}{" "}
+                                  {room.totalBed === 1 ? "bed" : "beds"}{" "}
                                   available
                                 </span>
                               </div>
@@ -622,7 +449,7 @@ export default function Page() {
                           Features & Amenities
                         </h4>
                         <div className="flex flex-wrap gap-1.5 mb-3">
-                          {property.propertyFeature
+                          {property?.propertyFeature
                             ?.slice(0, 4)
                             .map((feature, idx) => (
                               <span
