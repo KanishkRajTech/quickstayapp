@@ -181,11 +181,14 @@ import {
   UserTypeSelector,
   type UserType,
 } from "./componets/user-type-selector";
+
+
 import Navbar from "@/component/navbar";
 import Footer from "@/component/Footer";
 
 import { searchProperties } from "../../lib/firestore";
 import type { Property, SearchFilters } from "@/types/index";
+import Image from "next/image";
 
 export default function Page() {
   const [currentText, setCurrentText] = useState(0);
@@ -221,10 +224,10 @@ export default function Page() {
 
     const currentFilters: SearchFilters = {
       type: type,
-      // Add other filters here as
+      // Add other filters here as needed
     };
 
-    //Call the Firebase search function
+    // Call the Firebase search function
     const { data, error } = await searchProperties(
       location.trim(),
       currentFilters
@@ -236,20 +239,16 @@ export default function Page() {
     } else if (data) {
       setSearchResults(data);
       console.log("[v1] Search successful. Found:", data.length, "properties.");
-      //  Navigate to the search results page here
     }
 
-    // await new Promise((resolve) => setTimeout(resolve, 1000)); // Remove mock delay
-    console.log("[v0] Search submit:", { type, location });
     setIsSearching(false);
   }
 
   function useCurrentLocation() {
     setIsSearching(true);
-
-    // Implement actual Geolocation API call here
+    // Simulate geolocation for demo
     setTimeout(() => {
-      setLocation("Current Location (Simulated)"); // Placeholder for real location
+      setLocation("Current Location (Simulated)");
       setIsSearching(false);
     }, 800);
   }
@@ -257,9 +256,8 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-br from-[#E9C5C4] via-[#F5E8E7] to-gray-50 min-h-screen flex items-center">
+      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 bg-gradient-to-br from-[#E9C5C4] via-[#F5E8E7] to-gray-50 min-h-screen flex items-center flex-col">
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5"></div>
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <header className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 mb-4">
@@ -317,7 +315,6 @@ export default function Page() {
                     Finding in
                   </label>
                 </div>
-
                 <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
                   <div className="flex-1 w-full">
                     <div className="relative group">
@@ -332,7 +329,6 @@ export default function Page() {
                       />
                     </div>
                   </div>
-
                   <div className="flex gap-3 w-full lg:w-auto">
                     <button
                       type="button"
@@ -348,7 +344,6 @@ export default function Page() {
                       />
                       <span className="lg:hidden">Current</span>
                     </button>
-
                     <button
                       type="submit"
                       disabled={isSearching || !location.trim()}
@@ -397,8 +392,339 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <section className="py-8 w-full bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 p-6 bg-gradient-to-r from-white to-gray-50/50 border border-gray-200/60 rounded-2xl shadow-sm">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-3 h-3 bg-[#A00500] rounded-full absolute -top-1 -right-1 animate-ping opacity-75"></div>
+                <div className="w-10 h-10 bg-gradient-to-br from-[#A00500] to-[#D32F2F] rounded-xl flex items-center justify-center shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">
+                  Available Properties
+                </h2>
+                <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                  <span>Found</span>
+                  <span className="font-semibold text-[#A00500]">
+                    {searchResults.length}
+                  </span>
+                  <span>
+                    {searchResults.length === 1 ? "match" : "matches"}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {searchResults.length === 0 ? (
+            <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="text-gray-400 mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-gray-700 mb-1">
+                No properties found
+              </h3>
+              <p className="text-gray-500">
+                Try adjusting your search criteria
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-6 grid-cols-1">
+              {searchResults.map((property) => (
+                <div
+                  key={property.id}
+                  className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-xl"
+                >
+                  <div className="flex flex-row-reverse">
+                    {/* Property Images - This will now appear on the left due to row-reverse */}
+                    {property.propertyImages &&
+                      property.propertyImages.length > 0 && (
+                        <div className="flex-shrink-0 w-1/3 p-5 hidden md:block">
+                          <div className="relative rounded-lg overflow-hidden aspect-video">
+                            <Image
+                              src="/OIP.jpeg"
+                              alt={`${property.propertyName} image (${
+                                property.propertyImages[0].imageType || "Photo"
+                              })`}
+                              fill
+                              style={{ objectFit: "cover" }}
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                            />
+                            {property.propertyImages.length > 1 && (
+                              <div className="absolute top-3 right-3 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded-md">
+                                +{property.propertyImages.length - 1} more
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                    {/* Property Header - This will appear on the right due to row-reverse */}
+                    <div className="flex-grow p-5">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-xl font-bold text-[#A00500] truncate mr-2">
+                          {property.propertyName}
+                        </h3>
+                        <div className="flex-shrink-0">
+                          <button className="text-gray-400 hover:text-red-500 transition-colors p-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center text-sm text-gray-500 mb-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 mr-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        <span className="truncate">
+                          {property.propertyLocality || "N/A"},{" "}
+                          {property.propertyCity || "N/A"}
+                        </span>
+                      </div>
+
+                      <p className="text-gray-700 line-clamp-2 mb-4">
+                        {property.propertyDescription ||
+                          "No description available"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Property Details */}
+                  <div className="px-5 pb-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Room Options */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1 text-gray-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                            />
+                          </svg>
+                          Room Options
+                        </h4>
+                        <ul className="space-y-2">
+                          {property.roomOptions?.map((room, idx) => (
+                            <li
+                              key={idx}
+                              className="flex justify-between text-sm"
+                            >
+                              <span className="text-gray-700">{room.type}</span>
+                              <div className="flex items-center">
+                                <span className="font-medium text-gray-900 mr-2">
+                                  ₹{room.amount || "N/A"}
+                                </span>
+                                <span
+                                  className={`px-2 py-0.5 rounded-full text-xs ${
+                                    (room.vacantBeds ?? 0) > 0
+                                      ? "bg-green-100 text-green-800"
+                                      : "bg-red-100 text-red-800"
+                                  }`}
+                                >
+                                  {room.vacantBeds ?? 0}{" "}
+                                  {room.vacantBeds === 1 ? "bed" : "beds"}{" "}
+                                  available
+                                </span>
+                              </div>
+                            </li>
+                          )) || (
+                            <li className="text-sm text-gray-500">
+                              No room options available
+                            </li>
+                          )}
+                        </ul>
+                      </div>
+
+                      {/* Property Features */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1 text-gray-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                            />
+                          </svg>
+                          Features & Amenities
+                        </h4>
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {property.propertyFeature
+                            ?.slice(0, 4)
+                            .map((feature, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-md"
+                              >
+                                {feature}
+                              </span>
+                            )) || (
+                            <span className="text-sm text-gray-500">
+                              No features listed
+                            </span>
+                          )}
+                          {property.propertyFeature &&
+                            property.propertyFeature.length > 4 && (
+                              <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md">
+                                +{property.propertyFeature.length - 4} more
+                              </span>
+                            )}
+                        </div>
+
+                        {/* WiFi Information */}
+                        {property.wifiList && property.wifiList.length > 0 && (
+                          <div className="mt-2">
+                            <div className="flex items-center text-sm text-gray-700 mb-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-4 w-4 mr-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+                                />
+                              </svg>
+                              <span className="font-medium">WiFi:</span>
+                              <span className="ml-1">
+                                {property.wifiList[0].providerName} (
+                                {property.wifiList[0].speed})
+                              </span>
+                              {property.wifiList.length > 1 && (
+                                <span className="ml-1 text-gray-500">
+                                  +{property.wifiList.length - 1} more
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Security Deposit */}
+                        {property.securityDeposit && (
+                          <div className="mt-2 text-sm text-gray-700">
+                            <span className="font-medium">
+                              Security Deposit:
+                            </span>{" "}
+                            {property.securityDeposit}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex justify-between items-center mt-5 pt-4 border-t border-gray-100">
+                      <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 mr-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                        View Details
+                      </button>
+                      <button className="px-4 py-2 bg-[#A00500] text-white text-sm font-medium rounded-lg hover:bg-[#8A0400] transition-colors">
+                        Contact Property
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
       <Footer />
-          
     </>
   );
 }
