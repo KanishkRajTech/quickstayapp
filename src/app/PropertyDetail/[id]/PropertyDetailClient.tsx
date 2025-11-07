@@ -7,7 +7,6 @@ import Footer from "@/component/Footer";
 import { getPropertyById } from "../../../lib/firestore";
 import useEmblaCarousel from "embla-carousel-react";
 
-
 export type RoomOption = {
   type: string;
   amount: number;
@@ -119,7 +118,13 @@ function HeaderImageSlider({
             <div className="relative min-w-0 flex-[0_0_100%] h-80 md:h-96" key={idx}>
               <div className="absolute inset-0 bg-gray-100">
                 {img.imageUrl ? (
-                  <Image src={img.imageUrl} alt={img.imageType || `${title}-image-${idx+1}`} fill className="object-cover" />
+                  <Image
+                    src={img.imageUrl}
+                    alt={img.imageType || `${title}-image-${idx + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 1024px"
+                    className="object-cover"
+                  />
                 ) : (
                   <div className="w-full h-full grid place-items-center text-gray-400">No image</div>
                 )}
@@ -130,11 +135,31 @@ function HeaderImageSlider({
       </div>
 
       {/* Controls */}
-      <button onClick={scrollPrev} aria-label="Previous image" className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow">
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd"/></svg>
+      <button
+        onClick={scrollPrev}
+        aria-label="Previous image"
+        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow"
+      >
+        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
       </button>
-      <button onClick={scrollNext} aria-label="Next image" className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow">
-        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+      <button
+        onClick={scrollNext}
+        aria-label="Next image"
+        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow"
+      >
+        <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
       </button>
 
       {/* Dots */}
@@ -170,7 +195,8 @@ export default function PropertyDetailClient({ propertyId }: { propertyId: strin
         } else {
           setProperty(data as Property);
         }
-      } catch (e) {
+      } catch (err) {
+        console.error(err);
         setError("Failed to load property");
         setProperty(null);
       } finally {
@@ -182,8 +208,6 @@ export default function PropertyDetailClient({ propertyId }: { propertyId: strin
       mounted = false;
     };
   }, [propertyId]);
-
-  const heroImage = useMemo(() => property?.propertyImages?.[0]?.imageUrl, [property]);
 
   // Formatters
   const inr = (n?: number) => (typeof n === "number" ? n.toLocaleString("en-IN") : undefined);
@@ -255,8 +279,6 @@ export default function PropertyDetailClient({ propertyId }: { propertyId: strin
         <div className="lg:col-span-2 space-y-8">
           <Section title="About Property">
             <p className="text-gray-700 leading-relaxed">{property.propertyDescription || "—"}</p>
-
-
           </Section>
 
           <Section title="Renting Terms">
@@ -337,16 +359,18 @@ export default function PropertyDetailClient({ propertyId }: { propertyId: strin
               <p className="text-gray-500">—</p>
             )}
           </Section>
-
         </div>
 
         {/* Right: CTA Card */}
         <aside className="lg:col-span-1 sticky top-4 self-start">
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow-xl border border-gray-100">
-            
+            <div className="flex items-baseline justify-between mb-4">
+              <div className="text-2xl font-bold text-gray-900">{typeof property.price === "number" ? `₹ ${inr(property.price)}` : "—"}</div>
+              {property.type && <Badge>{property.type}</Badge>}
+            </div>
 
             <div className="flex space-x-2 mb-4">
-              <button className="flex-1 py-3 px-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition">I'm interested</button>
+              <button className="flex-1 py-3 px-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition">I&apos;m interested</button>
               <button className="flex-1 py-3 px-4 rounded-xl font-bold text-gray-800 bg-white border-2 border-gray-200 hover:border-blue-600 transition">Reserve Bed</button>
             </div>
 
