@@ -212,7 +212,7 @@ export default function Page() {
               location.trim() &&
               searchResults.length === 0 && (
                 <div className="mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg">
-                  No properties found for "{location}".
+                  No properties found for &quot;{location}&quot;.
                 </div>
               )}
           </div>
