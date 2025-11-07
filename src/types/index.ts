@@ -29,6 +29,9 @@ propertyName: string;
   propertyDescription: string;
  propertyLocality: string;
  propertyCity: string;
+ whoCanStay: string[];
+ lockInPeriod: string;
+ noticePeriod: string;
 };
 
 export type SearchFilters = {
